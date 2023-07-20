@@ -6,16 +6,17 @@ app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///blog.db'
 db = SQLAlchemy(app)
 
-
+ 
 class Article(db.Model):
-    id = db.Colum(db.Integer, primary_key=True)
-    title = db.Colum(db.String(100), nullable=False)
-    intro = db.Colum(db.String(300), nullable=False)
-    text = db.Colum(db.Text(300), nullable=False)
-    date = db.Colum(db.DateTime(300), defolt=datetime.utcnow)
+    id = db.Column(db.Integer, primary_key=True)
+    title = db.Column(db.String(100), nullable=False)
+    intro = db.Column(db.String(300), nullable=False)
+    text = db.Column(db.Text(300), nullable=False)
+    date = db.Column(db.DateTime(300), default=datetime.utcnow)
 
     def __repr__(self):
-        return '<Article %r>' %self.id
+        return '<Article %r>' % self.id
+
 
 @app.route('/')
 @app.route('/home')
@@ -28,9 +29,9 @@ def about():
     return render_template('about.html')
 
 
-@app.route('/user/<string:name>>/<int:id>')
+@app.route('/user/<string:name>/<int:id>')
 def user(name, id):
-    return 'User page: ' + name + "-" + str(id)
+    return "User page: " + name + "-" + str(id)
 
 
 if __name__ == '__main__':
